@@ -1,0 +1,23 @@
+#!/bin/bash
+ 
+MYSQL=`which mysql`
+DATABASE="NOAADB"
+USER0="select"
+USER0pass="selectpass"
+USER1="all"
+USER1pass="allpass"
+Q1="CREATE DATABASE IF NOT EXISTS $DATABASE;"
+Q2="USE $DATABASE;"
+Q3="CREATE TABLE NOAA (
+        ICAO VARCHAR(4) NOT NULL PRIMARY KEY,
+        time VARCHAR(50) NULL DEFAULT '',
+        report VARCHAR(50) NULL DEFAULT ''
+    );"
+Q4="CREATE USER '$USER0'@'localhost' IDENTIFIED BY '$USER0pass';"
+Q5="CREATE USER '$USER1'@'localhost' IDENTIFIED BY '$USER1pass';"
+Q6="GRANT SELECT ON $DATABASE.* TO '$USER0'@'localhost' IDENTIFIED BY '$USER0pass';"
+Q7="GRANT ALL ON $DATABASE.* TO '$USER1'@'localhost' IDENTIFIED BY '$USER11pass';"
+Q8="FLUSH PRIVILEGES;"
+SQL="${Q1}${Q2}${Q3}${Q4}${Q5}${Q6}${Q7}${Q8}"
+ 
+$MYSQL -uroot -p -e "$SQL"
