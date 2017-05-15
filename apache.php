@@ -1,12 +1,12 @@
 <?php
 /*Extract the parameter named icao from the URL and put into a variable*/
-//$q=$_GET["icao"];
+$q=$_GET["icao"];
 //Connect to the database
 $servername = "localhost";
-$username = "all";
-$password = "allpass";
-$database = "NOAADB";
-$q  = "BGBW";
+$username = "root";
+$password = "?@~JDCNVOe7T%i9VzRHU";
+$database = "testphp";
+
 
 $db=new mysqli($servername,$username,$password,$database);
 if(mysqli_connect_errno())
@@ -17,6 +17,7 @@ if(mysqli_connect_errno())
 
 //Find the report for the ICAO code in the database
 	
+	
 	$query = "select * from NOAA where ICAO = '".$q."'";
 	$result = $db->query($query);
 	$num_results = $result->num_rows;
@@ -25,7 +26,7 @@ if(mysqli_connect_errno())
 	{
 	$row = $result->fetch_assoc();
 	$arr = array('ICAO' => $row['ICAO'], 'time' => $row['time'],
-	'report' => $row['report']);
+	'report' =>  str_replace("\n", '', $row['report']));
 	/* get the JSON printed */
 	echo json_encode($arr);
 	}
